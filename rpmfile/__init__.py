@@ -11,6 +11,7 @@ from rpmfile.io_extra import _SubFile
 
 pad = lambda fileobj: (4 - (fileobj.tell() % 4)) % 4
 
+
 class RPMInfo(object):
     '''
     Informational class which holds the details about an
@@ -31,7 +32,6 @@ class RPMInfo(object):
     @property
     def isdir(self):
         return self._isdir
-
 
     def __repr__(self):
         return '<RPMMember %r>' % self.name
@@ -60,6 +60,7 @@ class RPMInfo(object):
         nlink = int(d[4], 16)
         isdir = nlink == 2 and file_size == 0
         return cls(name, file_start, file_size, initial_offset, isdir)
+
 
 class RPMFile(object):
     '''
@@ -160,12 +161,14 @@ class RPMFile(object):
             self._gzip_file = gzip.GzipFile(fileobj=fileobj)
         return self._gzip_file
 
+
 def open(name=None, mode='rb', fileobj=None):
     '''
     Open an RPM archive for reading. Return
     an appropriate RPMFile class.
     '''
     return RPMFile(name, mode, fileobj)
+
 
 def main():
     print(sys.argv[1])
